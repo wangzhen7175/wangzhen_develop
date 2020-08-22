@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.GenerateIdMapper" >
+    <resultMap id="BaseResultMap" type="com.example.demo.entity.GenerateId" >
+        <result column="id_type" property="idType" jdbcType="VARCHAR" />
+        <result column="date" property="date" jdbcType="DATE" />
+        <result column="max_code" property="maxCode" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        id_type, date, max_code
+    </sql>
+    <select id="getMaxCode" resultType = "int">
+       SELECT max_code
+       FROM generate_id
+       WHERE
+       date = #{date,jdbcType=DATE}
+       AND
+       id_type = #{idType,jdbcType=VARCHAR}
+       FOR UPDATE
+    </select>
+    <select id="getOneByIdType" resultType = "com.example.demo.entity.GenerateId">
+        SELECT  id_type, date, max_code
+        FROM generate_id
+        WHERE
+        id_type = #{idType,jdbcType=VARCHAR}
+        FOR UPDATE
+    </select>
+    <update id="updateMaxCode">
+        UPDATE generate_id
+        SET
+        max_code = #{maxCode}
+        WHERE
+        id_type = #{idType,jdbcType=VARCHAR}
+    </update>
+    <update id="updateOne" parameterType="com.example.demo.entity.GenerateId">
+        UPDATE generate_id
+        SET
+        max_code = #{maxCode},
+        date =  #{date,jdbcType=DATE}
+        WHERE
+        id_type = #{idType,jdbcType=VARCHAR}
+    </update>
+    <insert id="insertOne" parameterType="com.example.demo.entity.GenerateId">
+        INSERT INTO generate_id
+        (id_type, date, max_code)
+        VALUES
+        (#{idType,jdbcType=VARCHAR},#{date,jdbcType=DATE},#{maxCode,jdbcType=INTEGER})
+    </insert>
+
+
+
+</mapper>
