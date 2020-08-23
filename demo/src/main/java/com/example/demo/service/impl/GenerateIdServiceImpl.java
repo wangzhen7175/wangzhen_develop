@@ -27,6 +27,17 @@ public class GenerateIdServiceImpl implements GenerateIdService {
         Date date = TimeUtil.getDate8(new Date());
 
         GenerateId generateId =  generateIdMapper.getOneByIdType(idType);
+        if(generateId == null){
+
+            generateId = new GenerateId();
+            generateId.setDate(date);
+
+            generateId.setIdType(idType);
+
+            generateId.setMaxCode(0);
+
+            generateIdMapper.insertOne(generateId);
+        }
         Integer maxCode = 1;
         if(date.compareTo(generateId.getDate())== 0){//日期相等
 

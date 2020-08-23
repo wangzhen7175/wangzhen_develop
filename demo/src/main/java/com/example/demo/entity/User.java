@@ -2,6 +2,9 @@ package com.example.demo.entity;
 
 import org.springframework.stereotype.Component;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * 用户类
  */
@@ -10,8 +13,17 @@ public class User {
 
     private String userId;
     private String userName;
-    private String passWord;
+    private String password;
     private String status;
+    private String roleIds ;
+
+    public String getRoleIds() {
+        return roleIds;
+    }
+
+    public void setRoleIds(String roleIds) {
+        this.roleIds = roleIds;
+    }
 
     public String getUserId() {
         return userId;
@@ -29,12 +41,12 @@ public class User {
         this.userName = userName;
     }
 
-    public String getPassWord() {
-        return passWord;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPassWord(String passWord) {
-        this.passWord = passWord;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getStatus() {
@@ -50,8 +62,9 @@ public class User {
         return "User{" +
                 "userId='" + userId + '\'' +
                 ", userName='" + userName + '\'' +
-                ", passWord='" + passWord + '\'' +
+                ", password='" + password + '\'' +
                 ", status='" + status + '\'' +
+                ", roleIds='" + roleIds + '\'' +
                 '}';
     }
 }

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>登录认证</title>
+    <script src="//cdn.bootcss.com/angular.js/1.5.6/angular.min.js"></script>
+    <script type="text/javascript">
+    /*<![CDATA[*/
+    var app = angular.module('app', []);
+    app.controller('UserController', function($rootScope, $scope, $http) {
+        $scope.message = '';
+        $scope.userName = '';
+        $scope.password = '';
+        //登录
+        $scope.login = function() {
+            $scope.message = '';
+            $http(
+                    {
+                        url : '/login',
+                        method : 'POST',
+                        headers : {
+                            'Content-Type' : 'application/x-www-form-urlencoded'
+                        },
+                        data : 'userName=' + $scope.userName + '&password='
+                                + $scope.password
+                    }).success(function(r) {
+                if (!r.success) {
+                    $scope.message = r.message;
+                    return;
+                }
+                window.location.href = '/index';
+            });
+        }
+    });
+    /*]]>*/
+</script>
+</head>
+<body ng-app="app" ng-controller="UserController">
+<h1>登录认证</h1>
+
+<table cellspacing="1" style="background-color: #a0c6e5">
+    <tr>
+        <td>账号：</td>
+        <td><input ng-model="userName" /></td>
+    </tr>
+    <tr>
+        <td>密码：</td>
+        <td><input type="password" ng-model="password" /></td>
+    </tr>
+</table>
+<input type="button" value="登录" ng-click="login()" />
+<br />
+<form method="get" action="/register">
+    <input type="submit" value="注册">
+</form>
+<font color="red" ng-show="message">{{message}}</font>
+</body>
+</html>

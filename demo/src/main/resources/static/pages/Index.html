@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>首页</title>
+</head>
+<body>
+<h1>首页</h1>
+<h3 th:text="'登录用户：' + ${userName}"></h3>
+
+<a href="/logout">注销</a>
+</body>
+<body>
+<h3 th:text="功能列表："></h3>
+<div  id = list style="display: none;"><h5 th:text="${roleList}"></h5></div>
+<div id="mydiv">
+</div>
+<script type="text/javascript">
+      var roleList = document.getElementById("list").innerText;
+      document.getElementById("mydiv").innerHTML = roleList;
+</script>
+</body>
+</html>

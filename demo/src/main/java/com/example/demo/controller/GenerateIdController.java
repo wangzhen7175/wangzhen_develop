@@ -14,6 +14,11 @@ public class GenerateIdController {
     @Autowired
     private GenerateIdService generateIdService;
 
+    /**
+     * 自动生成id
+     * @param idType
+     * @return
+     */
     @RequestMapping(value = "/id",method = RequestMethod.GET)
     public String login(@RequestParam @Value("idType") @NonNull String idType){
 

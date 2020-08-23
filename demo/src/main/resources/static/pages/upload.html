@@ -5,9 +5,22 @@
     <title>上传文件</title>
 </head>
 <body>
-     <form method="post" action="/upload/toUpload" enctype="multipart/form-data">
-          <input type="file" name="file"><br>
-          <input type="submit" value="提交">
-     </form>
+<form method="post" action="/upload/toUpload" enctype="multipart/form-data">
+    <input type="file" name="file"><br>
+    <input type="submit" value="上传普通文件">
+</form>
+</body>
+
+<body>
+<form method="post" action="/upload/toUploadDir" enctype="multipart/form-data">
+    <input type="file" name="file" webkitdirectory><br>
+    <input type="submit" value="上传整个文件夹">
+</form>
+</body>
+<body>
+<form method="post" action="/upload/toUploadZip" enctype="multipart/form-data">
+    <input type="file" name="file"><br>
+    <input type="submit" value="上传压缩文件">
+</form>
 </body>
 </html>
