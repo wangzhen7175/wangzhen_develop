@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.FileInfoMapper">
+    <resultMap id="BaseResultMap" type="com.example.demo.entity.FileInfo">
+        <result column="file_id" property="fileId" jdbcType="VARCHAR"/>
+        <result column="file_name" property="fileName" jdbcType="VARCHAR"/>
+        <result column="file_path" property="filePath" jdbcType="VARCHAR"/>
+        <result column="file_size" property="fileSize" jdbcType="VARCHAR"/>
+        <result column="dataset_id" property="datasetId" jdbcType="INTEGER"/>
+        <result column="create_time" property="createTime" jdbcType="DATE"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+         file_id, file_name, file_path, file_size,dataset_id,create_time
+    </sql>
+    <insert id="insertOne" parameterType="com.example.demo.entity.FileInfo">
+        INSERT INTO
+        file_info
+        (file_id, file_name, file_path, file_size,dataset_id,create_time)
+        VALUES
+        (#{fileId}, #{fileName}, #{filePath},#{fileSize},#{datasetId},#{createTime})
+    </insert>
+    <insert id="batchInsert" parameterType="java.util.List">
+        INSERT INTO
+        file_info
+        (file_id, file_name, file_path, file_size,dataset_id,create_time)
+        VALUES
+        <foreach collection ="fileInfoList" item="item" index= "index" separator =",">
+            (
+            #{item.fileId},
+            #{item.fileName},
+            #{item.filePath},
+            #{item.fileSize},
+            #{item.datasetId},
+            #{item.createTime}
+            )
+        </foreach >
+    </insert>
+    <select id="getById" parameterType="java.lang.String" resultType="com.example.demo.entity.FileInfo">
+        SELECT file_id, file_name, file_path, file_size,dataset_id,create_time
+        FROM file_info
+        WHERE file_id = #{fileId}
+    </select>
+    <select id="getByDatasetId" parameterType="java.lang.String" resultType="com.example.demo.entity.FileInfo">
+        SELECT file_id, file_name, file_path, file_size,dataset_id,create_time
+        FROM file_info
+        WHERE dataset_id = #{datasetId}
+    </select>
+    <delete id="deleteOne" parameterType="java.lang.String">
+        DELETE
+        FROM file_info
+        WHERE file_id = #{fileId}
+    </delete>
+    <delete id="deleteAll" parameterType="java.lang.String">
+        DELETE
+        FROM file_info
+        WHERE dataset_id = #{datasetId}
+    </delete>
+
+</mapper>

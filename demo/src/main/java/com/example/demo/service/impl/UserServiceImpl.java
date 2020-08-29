@@ -54,10 +54,12 @@ public class UserServiceImpl implements UserService {
             userMapper.insert(user);
 
             // 设置session
-            session.setAttribute(CommonConstant.SESSION_KEY, user.getUserName());
+            session.setAttribute(CommonConstant.USER_NAME, user.getUserName());
+            session.setAttribute(CommonConstant.USER_ID, user.getUserId());
             map.put("success", true);
             map.put("message", "注册成功");
             model.addAttribute("userName", user.getUserName());
+            model.addAttribute("userId", user.getUserId());
             return map;
         } else {
             map.put("success", false);
@@ -73,12 +75,15 @@ public class UserServiceImpl implements UserService {
         Map<String, Object> map = new HashMap<>();
         if (getUser != null) {
             //用户名密码正确
-            logger.info("用户登录成功" + user.getUserName());
+            logger.info("用户登录成功" + getUser.getUserName());
             // 设置session
-            session.setAttribute(CommonConstant.SESSION_KEY, user.getUserName());
+            session.setAttribute(CommonConstant.USER_NAME, getUser.getUserName());
+            session.setAttribute(CommonConstant.USER_ID, getUser.getUserId());
             map.put("success", true);
             map.put("message", "登录成功");
-            model.addAttribute("userName", user.getUserName());
+            model.addAttribute("userName", getUser.getUserName());
+            model.addAttribute("userId", getUser.getUserId());
+
             return map;
         } else {
             map.put("success", false);
@@ -90,9 +95,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public void getUserRoles(HttpSession session, Model model) {
 
-        String userName = session.getAttribute(CommonConstant.SESSION_KEY).toString();
-        User user = userMapper.getUserByName(userName);
-        model.addAttribute("userName", userName);
+        String userId = session.getAttribute(CommonConstant.USER_ID).toString();
+        User user = userMapper.getUserById(userId);
+        model.addAttribute("userName", user.getUserName());
         List<Role> roleList = roleMapper.getRoleList(user.getRoleIds());
         if (roleList.size() == 0) {
             model.addAttribute("roleList", "无任何权限");

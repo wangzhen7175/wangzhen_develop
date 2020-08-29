@@ -11,6 +11,10 @@ import java.util.Map;
 public interface UserMapper {
 
     int insert(User user);
+
     User getUserByNameAndpwd(@Param("userName") String userName,@Param("passWord") String passWord);
+
     User getUserByName(@Param("userName") String userName);
+
+    User getUserById(@Param("userId") String userId);
 }

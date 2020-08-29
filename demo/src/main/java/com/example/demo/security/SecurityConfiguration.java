@@ -42,7 +42,7 @@ public class SecurityConfiguration extends WebMvcConfigurerAdapter {
         public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
                 throws Exception {
             HttpSession session = request.getSession();
-            if (session.getAttribute(CommonConstant.SESSION_KEY) != null)
+            if (session.getAttribute(CommonConstant.USER_ID) != null)
                 return true;
            // logger.info("请求路径" + request.getRequestURL());
             // 跳转登录

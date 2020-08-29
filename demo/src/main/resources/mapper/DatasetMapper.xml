@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.DatasetMapper">
+    <resultMap id="BaseResultMap" type="com.example.demo.entity.Dataset">
+        <result column="dataset_name" property="datasetName" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="DATE"/>
+        <result column="user_id" property="userId" jdbcType="VARCHAR"/>
+        <result column="dataset_id" property="datasetId" jdbcType="VARCHAR"/>
+        <result column="file_count" property="fileCount" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+         dataset_id, dataset_name, file_count, user_id,create_time
+    </sql>
+    <insert id="insertOne" parameterType="com.example.demo.entity.Dataset">
+        INSERT INTO
+        dataset
+        (dataset_id, dataset_name, file_count, user_id,create_time)
+        VALUES
+        (#{datasetId}, #{datasetName}, #{fileCount},#{userId},#{createTime})
+    </insert>
+    <select id="getById" parameterType="java.lang.String" resultType="com.example.demo.entity.Dataset">
+        SELECT dataset_id, dataset_name, file_count, user_id,create_time
+        FROM dataset
+        WHERE dataset_id = #{datasetId}
+    </select>
+    <delete id="deleteOne" parameterType="java.lang.String">
+        DELETE
+        FROM dataset
+        WHERE dataset_id = #{datasetId}
+    </delete>
+    <update id="updateOne" parameterType="com.example.demo.entity.User">
+        UPDATE dataset
+        SET
+        <if test = "#{datasetName} != '' AND #{datasetName} != NULL" >
+             dataset_name =  #{datasetName}
+        </if>
+       <if test= "#{fileCount} != '' AND #{fileCount} != NULL" >
+            file_count = #{fileCount}
+        </if>
+       <if test= "#{userId} != '' AND #{userId} != NULL" >
+              user_id = #{userId}
+        </if>
+        WHERE dataset_id = #{datasetId}
+        </update>
+
+</mapper>

@@ -4,5 +4,6 @@ public class CommonConstant {
     /**
      * 登录session key
      */
-    public final static String SESSION_KEY = "user";
+    public final static String USER_ID = "userId";
+    public final static String USER_NAME = "userName";
 }
